@@ -1,0 +1,139 @@
+---
+title: "Práctica Sesión 1: Primeros pasos con GWR"
+author: "Dr. Agustín Alesso"
+format:
+  html:
+    toc: true
+    code-tools: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+Este notebook reproduce el código de la parte práctica de la Sesión 1. Se puede correr chunk por chunk (`Ctrl+Enter`) o renderizar completo (`Ctrl+Shift+K`).
+
+Convención para bloques lentos:
+
+- `# PUEDE DEMORAR`: se ejecuta, pero puede tardar algunos segundos o minutos.
+- `# COSTOSO`: desactivado (`eval: false`); en el script `.R` aparece comentado.
+
+## Paquetes
+
+```{r}
+#| eval: false
+# Instalación (una sola vez)
+pkgs <- c("GWmodel", "sf", "tidyverse", "patchwork", "GGally", "agridat", "here")
+install.packages("pak")
+pak::pak(pkgs)
+```
+
+```{r}
+library(GWmodel)   # ajuste de GWR
+library(sf)        # manejo de datos espaciales
+library(tidyverse) # manipulación de datos y ggplot2
+library(agridat)   # dataset lasrosas.corn
+```
+
+## Cargar y explorar los datos
+
+`agridat::lasrosas.corn`: monitor de rendimiento de un lote de maíz con nitrógeno variable (Las Rosas, Río Cuarto, Córdoba). Usamos el año 1999.
+
+- `yield`: rendimiento de maíz (qq/ha)
+- `bv`: *brightness value*, proxy (inverso) de materia orgánica del suelo
+
+```{r}
+lr1999 <- lasrosas.corn |>
+  filter(year == 1999) |>
+  st_as_sf(coords = c("long", "lat")) |>
+  st_set_crs(4326) |>
+  st_transform(32720)
+
+glimpse(lr1999)
+```
+
+```{r}
+ggplot(lr1999) +
+  aes(color = yield) +
+  geom_sf(size = 2, shape = "square") +
+  scale_color_viridis_c() +
+  labs(title = "Yield (qq/ha)", color = NULL) +
+  theme_void()
+```
+
+## Seleccionar el bandwidth
+
+`gwr.basic()` y `bw.gwr()` aceptan objetos `sf` o `Spatial*DataFrame`.
+
+```{r}
+# PUEDE DEMORAR (~5-10 s): búsqueda del bandwidth óptimo
+# Seleccionar criterio
+approach <- "AICc"   # otra opción CV
+kernel <- "bisquare" # otros: exponential, gaussian, etc
+ad <- TRUE # FALSE para fixed
+
+bw_bv <- bw.gwr(
+  yield ~ bv,
+  data = lr1999,
+  approach = approach,
+  kernel = kernel,
+  adaptive = ad
+)
+```
+
+El bandwidth optimizado:
+
+```{r}
+bw_bv
+```
+
+## Ajustar el modelo GWR
+
+```{r}
+gwr_bv <- gwr.basic(
+  yield ~ bv,
+  data = lr1999,
+  bw = bw_bv,
+  kernel = kernel,
+  adaptive = ad
+)
+gwr_bv
+```
+
+## Explorando el objeto `SDF`
+
+```{r}
+glimpse(gwr_bv$SDF)
+```
+
+- `Intercept`, `bv`: coeficientes locales $\beta_0(s_i)$, $\beta_1(s_i)$
+- `y`, `yhat`: valor observado y ajustado localmente
+- `residual`: `y - yhat`
+- `CV_Score`: residuo de validación cruzada
+- `Stud_residual`: residuo estudentizado
+- `*_SE`: error estándar de cada coeficiente local
+- `*_TV`: estadístico t de cada coeficiente local
+- `Local_R2`: bondad de ajuste local
+
+## Distribución de coeficientes y R² local
+
+```{r}
+ggplot(st_drop_geometry(gwr_bv$SDF)) +
+  aes(x = bv) +
+  geom_histogram(bins = 20, fill = "steelblue", color = "white") +
+  geom_vline(xintercept = coef(gwr_bv$lm)["bv"], color = "firebrick", linetype = "dashed", linewidth = 1) +
+  labs(x = "Pendiente local de bv", y = "Frecuencia")
+```
+
+```{r}
+ggplot(gwr_bv$SDF) +
+  aes(color = Local_R2) +
+  geom_sf(size = 2, shape = "square") +
+  scale_color_gradient2(midpoint = 0.5, limits = c(0, 1)) +
+  labs(title = "R² local", color = NULL) +
+  theme_void()
+```
+
+```{r}
+# Mapa coeficiente `bv`
+```
