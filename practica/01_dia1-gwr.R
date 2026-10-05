@@ -1,5 +1,5 @@
 ## -----------------------------------------------------------------------------
-# Práctica Sesión 1: Primeros pasos con GWR
+# Práctica Día 1: Primeros pasos con GWR
 ## -----------------------------------------------------------------------------
 
 ## Paquetes --------------------------------------------------------------------
@@ -27,7 +27,7 @@ ggplot(lr1999) +
   aes(color = yield) +
   geom_sf(size = 2, shape = "square") +
   scale_color_viridis_c() +
-  labs(title = "Yield (qq/ha)", color = NULL) +
+  labs(title = "Rendimiento (qq/ha)", color = NULL) +
   theme_void()
 
 ## Seleccionar el bandwidth ----------------------------------------------------

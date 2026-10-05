@@ -1,5 +1,5 @@
 ---
-title: "Práctica Sesión 1: Primeros pasos con GWR"
+title: "Práctica Día 1: Primeros pasos con GWR"
 author: "Dr. Agustín Alesso"
 format:
   html:
@@ -11,7 +11,7 @@ execute:
   message: false
 ---
 
-Este notebook reproduce el código de la parte práctica de la Sesión 1. Se puede correr chunk por chunk (`Ctrl+Enter`) o renderizar completo (`Ctrl+Shift+K`).
+Este notebook reproduce el código de la parte práctica del Día 1. Se puede correr chunk por chunk (`Ctrl+Enter`) o renderizar completo (`Ctrl+Shift+K`).
 
 Convención para bloques lentos:
 
@@ -57,7 +57,7 @@ ggplot(lr1999) +
   aes(color = yield) +
   geom_sf(size = 2, shape = "square") +
   scale_color_viridis_c() +
-  labs(title = "Yield (qq/ha)", color = NULL) +
+  labs(title = "Rendimiento (qq/ha)", color = NULL) +
   theme_void()
 ```
 

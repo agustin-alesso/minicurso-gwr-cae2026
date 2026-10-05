@@ -1,5 +1,5 @@
 ## -----------------------------------------------------------------------------
-# Práctica Sesión 3: MGWR y extensiones de GWR
+# Práctica Día 3: MGWR y extensiones de GWR
 ## -----------------------------------------------------------------------------
 
 ## Paquetes --------------------------------------------------------------------
@@ -81,7 +81,7 @@ mapa_r2 <- ggplot(gwr_ga$SDF) +
   aes(fill = Local_R2) +
   geom_sf(linewidth = 0.1) +
   scale_fill_viridis_c(limits = c(0, 1)) +
-  labs(title = "Local R2", fill = NULL) +
+  labs(title = "R² local", fill = NULL) +
   theme_void()
 
 wrap_plots(c(mapas, mapa_r2), ncol = 3)

@@ -1,5 +1,5 @@
 ## -----------------------------------------------------------------------------
-# Práctica Sesión 2: Diagnóstico e inferencia en GWR
+# Práctica Día 2: Diagnóstico e inferencia en GWR
 ## -----------------------------------------------------------------------------
 
 ## Paquetes --------------------------------------------------------------------
@@ -128,17 +128,17 @@ ggplot(gwr_bv$SDF) +
   theme_void()
 
 ## Complejidad del modelo: ENP -------------------------------------------------
-# Numero de parametros efectivos
+# Número de parámetros efectivos
 gwr_bv$GW.diagnostic$enp
 
-# Numéro de gl efectivos
+# Número de gl efectivos
 gwr_bv$GW.diagnostic$edf
 
 ## AICc: OLS vs. GWR -----------------------------------------------------------
 # AIC modelo global
-k <- 2
+p <- 2
 m <- nrow(lr1999)
-AIC(gwr_bv$lm) + (2 * k * (k + 1)) / (m - k - 1)
+AIC(gwr_bv$lm) + (2 * p * (p + 1)) / (m - p - 1)
 
 # AICc GWR
 gwr_bv$GW.diagnostic$AICc
@@ -206,7 +206,7 @@ ggplot(gwr_bv$SDF) +
   theme(legend.position = "bottom")
 
 ## Problema 1: valores p ajustados por multiplicidad ---------------------------
-# Calculo valores p con gwr.t.adjust()
+# Cálculo valores p con gwr.t.adjust()
 gwr_bv_sp <- gwr_bv
 gwr_bv_sp$SDF <- as(gwr_bv_sp$SDF, "Spatial")
 res <- gwr.t.adjust(gwr_bv_sp)$results
@@ -215,14 +215,14 @@ res <- gwr.t.adjust(gwr_bv_sp)$results
 p_fb <- res$fb
 
 # da Silva-Fotheringham, 2016
-k <- gwr_bv$lm$rank - 1
+p <- gwr_bv$lm$rank
 enp <- gwr_bv$GW.diagnostic$enp
 p_raw <- as_tibble(res$p)
 p_dsf <- p_raw |>
   mutate(
     across(
       .cols = ends_with("_p"),
-      .fns = \(x) x * (enp / k),
+      .fns = \(x) x * (enp / p),
       .names = "{col}_dsf"
     ),
     .keep = "none"
@@ -253,7 +253,7 @@ ggplot(gwr_bv$SDF) +
   theme_void() +
   theme(legend.position = "bottom")
 
-## Problema 1: corrección da Silva & Fotheringham (2016) -----------------------
+## Problema 1: corrección da Silva-Fotheringham (2016) -----------------------
 ggplot(gwr_bv$SDF) +
   aes(color = bv_p_dsf < 0.05) +
   geom_sf(size = 2, shape = "square") +
