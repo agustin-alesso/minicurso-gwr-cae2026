@@ -1,4 +1,4 @@
-# Más allá de OLS: modelando relaciones espacialmente variables con GWR
+# Regresión geográfica ponderada para el modelado de tendencia en procesos estocásticos espaciales
 
 Material de práctica del minicurso de GWR y MGWR en R, dictado en el II Congreso Argentino de Estadística.
 
