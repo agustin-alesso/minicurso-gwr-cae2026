@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<script src="dia3-mgwr_files/libs/clipboard/clipboard.min.js"></script>
+<script src="dia3-mgwr_files/libs/quarto-html/tabby.min.js"></script>
+<script src="dia3-mgwr_files/libs/quarto-html/popper.min.js"></script>
+<script src="dia3-mgwr_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="dia3-mgwr_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="dia3-mgwr_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="dia3-mgwr_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="Dr.&nbsp;Agustín Alesso">
+  <title>MGWR y extensiones de GWR</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="dia3-mgwr_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="dia3-mgwr_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="dia3-mgwr_files/libs/revealjs/dist/theme/quarto-930cdca9d03454d143b52d2f1b7ff5f2.css">
+  <link href="dia3-mgwr_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="dia3-mgwr_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="dia3-mgwr_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="dia3-mgwr_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="dia3-mgwr_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="dia3-mgwr_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">MGWR y extensiones de GWR</h1>
+  <p class="subtitle">Regresión geográfica ponderada · Día 3</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Dr.&nbsp;Agustín Alesso 
+</div>
+</div>
+</div>
+
+</section>
+<section id="hoja-de-ruta" class="slide level2">
+<h2>Hoja de ruta</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Repaso: GWR multivariado sobre <code>Georgia</code></li>
+<li>Fundamentos de MGWR
+<ul>
+<li>Un bandwidth por variable</li>
+<li>Backfitting y convergencia</li>
+<li>GWR vs.&nbsp;MGWR</li>
+</ul></li>
+<li>Ajuste de MGWR en R con <code>gwr.multiscale()</code>
+<ul>
+<li>Convergencia, diagnóstico y coeficientes</li>
+</ul></li>
+<li>Problemas de MGWR</li>
+<li>Complementos: GWGLM y otras extensiones</li>
+<li>Cierre</li>
+</ul>
+</div><div class="column fragment" style="width:50%;">
+<div title="Preparando R">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Preparando R</strong></p>
+</div>
+<div class="callout-content">
+<p>Para correr el código de estos slides se necesitan estos paquetes.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(GWmodel)   <span class="co"># GWR, MGWR, GWGLM</span></span>
+<span id="cb1-2"><a href=""></a><span class="fu">library</span>(sf)        <span class="co"># manejo de datos espaciales</span></span>
+<span id="cb1-3"><a href=""></a><span class="fu">library</span>(tidyverse) <span class="co"># manipulación de datos y ggplot2</span></span>
+<span id="cb1-4"><a href=""></a><span class="fu">library</span>(patchwork) <span class="co"># composición de mapas/gráficos</span></span>
+<span id="cb1-5"><a href=""></a><span class="fu">library</span>(GGally)    <span class="co"># splom (ggpairs)</span></span>
+<span id="cb1-6"><a href=""></a><span class="fu">library</span>(gstat)     <span class="co"># variogramas</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>¿Cómo instalarlos?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"GWmodel"</span>, <span class="st">"sf"</span>, <span class="st">"tidyverse"</span>, <span class="st">"patchwork"</span>, <span class="st">"GGally"</span>, <span class="st">"gstat"</span>)</span>
+<span id="cb2-2"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"pak"</span>)</span>
+<span id="cb2-3"><a href=""></a>pak<span class="sc">::</span><span class="fu">pak</span>(pkgs)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section>
+<section id="repaso-gwr-multivariado-sobre-georgia" class="title-slide slide level1 center">
+<h1>Repaso: GWR multivariado sobre <code>Georgia</code></h1>
+
+</section>
+<section id="el-dataset-georgia" class="slide level2">
+<h2>El dataset: <code>Georgia</code></h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">data</span>(Georgia)</span>
+<span id="cb3-2"><a href=""></a><span class="fu">data</span>(GeorgiaCounties)</span>
+<span id="cb3-3"><a href=""></a></span>
+<span id="cb3-4"><a href=""></a>georgia_sf <span class="ot">&lt;-</span> <span class="fu">st_join</span>(</span>
+<span id="cb3-5"><a href=""></a>  <span class="fu">st_as_sf</span>(Gedu.counties),</span>
+<span id="cb3-6"><a href=""></a>  <span class="fu">st_as_sf</span>(Gedu.df, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"X"</span>, <span class="st">"Y"</span>))</span>
+<span id="cb3-7"><a href=""></a>)</span>
+<span id="cb3-8"><a href=""></a></span>
+<span id="cb3-9"><a href=""></a><span class="co"># Estandarizamos a N(0,1): lo discutimos más adelante</span></span>
+<span id="cb3-10"><a href=""></a>x_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"PctRural"</span>, <span class="st">"PctFB"</span>, <span class="st">"PctBlack"</span>, <span class="st">"PctPov"</span>)</span>
+<span id="cb3-11"><a href=""></a>y_var <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"PctBach"</span>)</span>
+<span id="cb3-12"><a href=""></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(y_var, x_vars)</span>
+<span id="cb3-13"><a href=""></a></span>
+<span id="cb3-14"><a href=""></a>georgia_std <span class="ot">&lt;-</span> georgia_sf <span class="sc">|&gt;</span></span>
+<span id="cb3-15"><a href=""></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(vars), \(x) <span class="fu">as.numeric</span>(<span class="fu">scale</span>(x))))</span>
+<span id="cb3-16"><a href=""></a></span>
+<span id="cb3-17"><a href=""></a>georgia_sf <span class="sc">|&gt;</span></span>
+<span id="cb3-18"><a href=""></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-19"><a href=""></a>  <span class="fu">select</span>(AreaKey, <span class="fu">all_of</span>(vars)) <span class="sc">|&gt;</span></span>
+<span id="cb3-20"><a href=""></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  AreaKey PctBach PctRural PctFB PctBlack PctPov
+0   13241    11.6      100  1.13     0.35   13.6
+1   13281    11.4      100  1.36     0.00   14.0
+2   13291    10.1      100  0.88     0.10   18.3
+3   13111     7.8      100  0.58     0.03   17.2
+4   13213     5.5       89  0.50     0.26   11.3
+5   13313    12.0       70  2.55     4.06   11.1</code></pre>
+</div>
+</div>
+</div><div class="column">
+<p>159 condados de Georgia (EEUU).</p>
+<p>Variable respuesta: <code>PctBach</code> (% de población con título universitario).</p>
+<p>Predictores:</p>
+<ul>
+<li><code>PctRural</code> (% población rural)</li>
+<li><code>PctFB</code> (% nacidos en el extranjero)</li>
+<li><code>PctBlack</code> (% población afroamericana)</li>
+<li><code>PctPov</code> (% bajo línea de pobreza)</li>
+</ul>
+</div></div>
+</section>
+<section id="exploración" class="slide level2">
+<h2>Exploración</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>georgia_sf <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href=""></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href=""></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(vars)) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href=""></a>  <span class="fu">ggpairs</span>(</span>
+<span id="cb5-5"><a href=""></a>    <span class="at">lower =</span> <span class="fu">list</span>(</span>
+<span id="cb5-6"><a href=""></a>      <span class="at">continuous =</span> <span class="fu">wrap</span>(</span>
+<span id="cb5-7"><a href=""></a>        <span class="st">"points"</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span></span>
+<span id="cb5-8"><a href=""></a>      )</span>
+<span id="cb5-9"><a href=""></a>    )</span>
+<span id="cb5-10"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb5-11"><a href=""></a>  <span class="fu">theme</span>(<span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="dia3-mgwr_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="ajustar-gwr" class="slide level2">
+<h2>Ajustar GWR</h2>
+<div class="r-stack">
+<div class="fragment fade-in-then-out">
+<div class="cell output-wide columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>bw_ga <span class="ot">&lt;-</span> <span class="fu">bw.gwr</span>(</span>
+<span id="cb6-2"><a href=""></a>  PctBach <span class="sc">~</span> PctRural <span class="sc">+</span> PctFB <span class="sc">+</span> PctBlack <span class="sc">+</span> PctPov,</span>
+<span id="cb6-3"><a href=""></a>  <span class="at">data =</span> georgia_std, <span class="at">approach =</span> <span class="st">"AICc"</span>,</span>
+<span id="cb6-4"><a href=""></a>  <span class="at">kernel =</span> <span class="st">"gaussian"</span>, <span class="at">adaptive =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-5"><a href=""></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code>Adaptive bandwidth (number of nearest neighbours): 105 AICc value: 308.1324 
+Adaptive bandwidth (number of nearest neighbours): 73 AICc value: 301.9621 
+Adaptive bandwidth (number of nearest neighbours): 51 AICc value: 296.3153 
+Adaptive bandwidth (number of nearest neighbours): 40 AICc value: 295.2154 
+Adaptive bandwidth (number of nearest neighbours): 30 AICc value: 294.2373 
+Adaptive bandwidth (number of nearest neighbours): 27 AICc value: 294.1352 
+Adaptive bandwidth (number of nearest neighbours): 22 AICc value: 295.0342 
+Adaptive bandwidth (number of nearest neighbours): 27 AICc value: 294.1352 </code></pre>
+</div>
+</div></div>
+<p>El bandwidth óptimo es 27</p>
+</div>
+<div class="fragment fade-in-then-out">
+<div class="cell output-wide columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>gwr_ga <span class="ot">&lt;-</span> <span class="fu">gwr.basic</span>(</span>
+<span id="cb8-2"><a href=""></a>  PctBach <span class="sc">~</span> PctRural <span class="sc">+</span> PctFB <span class="sc">+</span> PctBlack <span class="sc">+</span> PctPov,</span>
+<span id="cb8-3"><a href=""></a>  <span class="at">data =</span> georgia_std, <span class="at">bw =</span> bw_ga,</span>
+<span id="cb8-4"><a href=""></a>  <span class="at">kernel =</span> <span class="st">"gaussian"</span>, <span class="at">adaptive =</span> <span class="cn">TRUE</span></span>
+<span id="cb8-5"><a href=""></a>)</span>
+<span id="cb8-6"><a href=""></a>gwr_ga</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code>   ***********************************************************************
+   *                       Package   GWmodel                             *
+   ***********************************************************************
+   Program starts at: 2026-10-09 16:49:56.383162 
+   Call:
+   gwr.basic(formula = PctBach ~ PctRural + PctFB + PctBlack + PctPov, 
+    data = georgia_std, bw = bw_ga, kernel = "gaussian", adaptive = TRUE)
+
+   Dependent (y) variable:  PctBach
+   Independent variables:  PctRural PctFB PctBlack PctPov
+   Number of data points: 159
+   ***********************************************************************
+   *                    Results of Global Regression                     *
+   ***********************************************************************
+
+   Call:
+    lm(formula = formula, data = data)
+
+   Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6526 -0.3580 -0.0662  0.2846  3.2812 
+
+   Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+   (Intercept) -6.004e-17  5.154e-02   0.000 1.000000    
+   PctRural    -3.335e-01  6.340e-02  -5.261 4.74e-07 ***
+   PctFB        4.006e-01  6.449e-02   6.212 4.66e-09 ***
+   PctBlack     1.490e-01  8.003e-02   1.862 0.064452 .  
+   PctPov      -3.215e-01  8.317e-02  -3.865 0.000163 ***
+
+   ---Significance stars
+   Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+   Residual standard error: 0.6498 on 154 degrees of freedom
+   Multiple R-squared: 0.5884
+   Adjusted R-squared: 0.5777 
+   F-statistic: 55.04 on 4 and 154 DF,  p-value: &lt; 2.2e-16 
+   ***Extra Diagnostic information
+   Residual sum of squares: 65.0316
+   Sigma(hat): 0.6435946
+   AIC:  321.0715
+   AICc:  321.6242
+   BIC:  210.8984
+   ***********************************************************************
+   *          Results of Geographically Weighted Regression              *
+   ***********************************************************************
+
+   *********************Model calibration information*********************
+   Kernel function: gaussian 
+   Adaptive bandwidth: 27 (number of nearest neighbours)
+   Regression points: the same locations as observations are used.
+   Distance metric: Euclidean distance metric is used.
+
+   ****************Summary of GWR coefficient estimates:******************
+                  Min.   1st Qu.    Median   3rd Qu.    Max.
+   Intercept -0.166085 -0.100468  0.021691  0.119946  0.2148
+   PctRural  -0.422004 -0.341492 -0.319050 -0.270150 -0.2141
+   PctFB      0.107993  0.195787  0.475143  0.687251  0.7250
+   PctBlack  -0.125966 -0.022892  0.088694  0.218827  0.3668
+   PctPov    -0.440063 -0.317303 -0.220790 -0.128535 -0.0139
+   ************************Diagnostic information*************************
+   Number of data points: 159 
+   Effective number of parameters (2trace(S) - trace(S'S)): 21.16425 
+   Effective degrees of freedom (n-2trace(S) + trace(S'S)): 137.8358 
+   AICc (GWR book, Fotheringham, et al. 2002, p. 61, eq 2.33): 294.1352 
+   AIC (GWR book, Fotheringham, et al. 2002,GWR p. 96, eq. 4.22): 272.5065 
+   BIC (GWR book, Fotheringham, et al. 2002,GWR p. 61, eq. 2.34): 176.7024 
+   Residual sum of squares: 46.86271 
+   R-square value:  0.7034006 
+   Adjusted R-square value:  0.6575259 
+
+   ***********************************************************************
+   Program stops at: 2026-10-09 16:49:56.393025 </code></pre>
+</div>
+</div></div>
+</div>
+</div>
+</section>
+<section id="coeficientes-y-r²-local" class="slide level2">
+<h2>Coeficientes y R² local</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>coeficientes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Intercept"</span>, x_vars)</span>
+<span id="cb10-2"><a href=""></a></span>
+<span id="cb10-3"><a href=""></a>mapas <span class="ot">&lt;-</span> <span class="fu">map</span>(coeficientes, \(v) {</span>
+<span id="cb10-4"><a href=""></a>  <span class="fu">ggplot</span>(gwr_ga<span class="sc">$</span>SDF) <span class="sc">+</span></span>
+<span id="cb10-5"><a href=""></a>    <span class="fu">aes</span>(<span class="at">fill =</span> .data[[v]]) <span class="sc">+</span></span>
+<span id="cb10-6"><a href=""></a>    <span class="fu">geom_sf</span>(<span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href=""></a>    <span class="fu">scale_fill_gradient2</span>(<span class="at">midpoint =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb10-8"><a href=""></a>    <span class="fu">labs</span>(<span class="at">title =</span> v, <span class="at">fill =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb10-9"><a href=""></a>    <span class="fu">theme_void</span>()</span>
+<span id="cb10-10"><a href=""></a>})</span>
+<span id="cb10-11"><a href=""></a></span>
+<span id="cb10-12"><a href=""></a>mapa_r2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(gwr_ga<span class="sc">$</span>SDF) <span class="sc">+</span></span>
+<span id="cb10-13"><a href=""></a>  <span class="fu">aes</span>(<span class="at">fill =</span> Local_R2) <span class="sc">+</span></span>
+<span id="cb10-14"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb10-15"><a href=""></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb10-16"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"R² local"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb10-17"><a href=""></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb10-18"><a href=""></a></span>
+<span id="cb10-19"><a href=""></a><span class="fu">wrap_plots</span>(<span class="fu">c</span>(mapas, mapa_r2), <span class="at">ncol =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="dia3-mgwr_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section></section>
+<section>
+<section id="fundamentos-de-mgwr" class="title-slide slide level1 center">
+<h1>Fundamentos de MGWR</h1>
+
+</section>
+<section id="de-gwr-a-mgwr" class="slide level2">
+<h2>De GWR a MGWR</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>GWR</strong></p>
+<p><span class="math display">\[y_i = \beta_0(s_i) + \sum_{j=1}^{k} \beta_j(s_i) x_{ij} + \varepsilon_i\]</span></p>
+<ul>
+<li>Todos los <span class="math inline">\(\beta_j(s_i)\)</span> se estiman con el <strong>mismo bandwidth</strong> <span class="math inline">\(bw\)</span> (la misma <span class="math inline">\(\mathbf{W}_i\)</span>).</li>
+<li>Supone implícitamente que todos los procesos operan a la <strong>misma escala espacial</strong>.</li>
+</ul>
+</div><div class="column fragment" style="width:50%;">
+<p><strong>MGWR</strong></p>
+<p><span class="math display">\[y_i = \beta_{bw_0}(s_i) + \sum_{j=1}^{k} \beta_{bw_j}(s_i) x_{ij} + \varepsilon_i\]</span></p>
+<ul>
+<li>Cada coeficiente tiene su <strong>propio bandwidth</strong> <span class="math inline">\(bw_j\)</span> (e.g.&nbsp;un suelo puede variar en metros y el clima en kilómetros).</li>
+<li>Cada <span class="math inline">\(bw_j\)</span> es una medida de la <strong>escala del proceso</strong></li>
+<li>Para comparar escalas y magnitudes entre variables hay que <strong>estandarizar</strong></li>
+</ul>
+</div></div>
+</section>
+<section id="estimación-mgwr-backfitting" class="slide level2 smaller">
+<h2>Estimación MGWR: backfitting</h2>
+<p>MGWR se reformula como un <strong>modelo aditivo generalizado</strong> (GAM), con un término suavizado por variable:</p>
+<p><span class="math display">\[\mathbf{y} = \mathbf{f}_{bw_0} + \mathbf{f}_{bw_1}(\mathbf{x}_1) + \dots + \mathbf{f}_{bw_k}(\mathbf{x}_k) + \boldsymbol{\varepsilon}\]</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Cada término se estima sobre los <strong>residuos parciales</strong>:</p>
+<p><span class="math display">\[\mathbf{f}_{bw_j} = \mathbf{A}_j \left( \mathbf{y} - \sum_{j' \neq j} \mathbf{f}_{bw_{j'}} \right)\]</span></p>
+<p><span class="math inline">\(\mathbf{A}_j\)</span> es la matriz <em>hat</em> de un <strong>GWR univariado</strong> de <span class="math inline">\(\mathbf{x}_j\)</span> con su propio <span class="math inline">\(bw_j\)</span>.</p>
+</div><div class="column fragment" style="width:50%;">
+<div title="Algoritmo">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Algoritmo</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Calibrar un modelo GWR <span class="math inline">\(\mathbf{y} \sim \mathbf{X}\)</span> e inicializar <span class="math inline">\(\hat{\boldsymbol\beta}_j = \hat{\mathbf{f}}_j\)</span>, <span class="math inline">\(\hat{\boldsymbol\varepsilon}\)</span> y <span class="math inline">\(\mathbf{R}_j\)</span></li>
+<li>Para cada <span class="math inline">\(j = 0, \dots, k\)</span>:
+<ul>
+<li>Calibrar GWR univariado <span class="math inline">\(\hat{\mathbf{f}}_j + \hat{\boldsymbol\varepsilon} \sim \mathbf{x}_j\)</span></li>
+<li>Actualizar: <span class="math inline">\(\hat{\boldsymbol\beta}_j \leftarrow \hat{\mathbf{f}}_j^*\)</span> y <span class="math inline">\(\hat{\boldsymbol\varepsilon} \leftarrow \hat{\boldsymbol\varepsilon}^*\)</span> y calcular <span class="math inline">\(\mathbf{R}_j\)</span></li>
+</ul></li>
+<li>Calcular el SOC (<em>score of change</em>)</li>
+<li>Repetir 2-3 hasta <span class="math inline">\(SOC &lt; \eta\)</span> (típ. <span class="math inline">\(10^{-5}\)</span>)</li>
+<li>Calcular <span class="math inline">\(\mathbf{S} = \sum_{j=0}^{k} \mathbf{R}_j\)</span>, <span class="math inline">\(ENP_j = \text{tr}(\mathbf{R}_j)\)</span> (para inferencia)</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<div class="fragment">
+<div title="¿Por qué no hay solución cerrada?">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>¿Por qué no hay solución cerrada?</strong></p>
+</div>
+<div class="callout-content">
+<p>En GWR, el <span class="math inline">\(bw\)</span> se ajusta primero, luego los coeficientes. En MGWR, <strong>los bandwidths se estiman junto con los coeficientes</strong>: <span class="math inline">\(bw_j\)</span> se elige sobre el residuo parcial <span class="math inline">\(\mathbf{y} - \sum_{j' \neq j} \hat{\mathbf{f}}_{j'}\)</span>, así que si cambian las demás <span class="math inline">\(\hat{\mathbf{f}}_{j'}\)</span> (o sus bandwidths) cambia el objetivo y con él el <span class="math inline">\(bw_j\)</span> óptimo. Se resuelve <strong>una variable por vez, iterando</strong> hasta que bandwidths y coeficientes dejan de cambiar</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="comparación-conceptual" class="slide level2">
+<h2>Comparación conceptual</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>GWR</th>
+<th>MGWR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bandwidth</td>
+<td>Uno para todas las variables</td>
+<td>Uno <strong>por variable</strong></td>
+</tr>
+<tr class="even">
+<td>Supuesto implícito</td>
+<td>Todos los procesos comparten escala espacial</td>
+<td>Cada proceso tiene su propia escala</td>
+</tr>
+<tr class="odd">
+<td>Estimación</td>
+<td>Fórmula cerrada (WLS)</td>
+<td>Iterativa (backfitting)</td>
+</tr>
+<tr class="even">
+<td>Costo computacional</td>
+<td>Menor</td>
+<td>Mayor</td>
+</tr>
+<tr class="odd">
+<td>Cuándo preferirlo</td>
+<td>Exploración inicial, procesos con escala similar esperada</td>
+<td>Cuando se sospechan escalas distintas por variable, o para diagnosticar esa sospecha</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="ajuste-de-mgwr-en-r" class="title-slide slide level1 center">
+<h1>Ajuste de MGWR en R</h1>
+
+</section>
+<section id="ajustar-mgwr-con-gwr.multiscale" class="slide level2">
+<h2>Ajustar MGWR con <code>gwr.multiscale()</code></h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>mgwr_std <span class="ot">&lt;-</span> <span class="fu">gwr.multiscale</span>(</span>
+<span id="cb11-2"><a href=""></a>  PctBach <span class="sc">~</span> PctRural <span class="sc">+</span> PctFB <span class="sc">+</span> PctBlack <span class="sc">+</span> PctPov,</span>
+<span id="cb11-3"><a href=""></a>  <span class="at">data =</span> georgia_std,</span>
+<span id="cb11-4"><a href=""></a>  <span class="at">kernel =</span> <span class="st">"gaussian"</span>,</span>
+<span id="cb11-5"><a href=""></a>  <span class="at">adaptive =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-6"><a href=""></a>  <span class="at">criterion =</span> <span class="st">"dCVR"</span>,</span>
+<span id="cb11-7"><a href=""></a>  <span class="at">bws0 =</span> <span class="fu">rep</span>(<span class="dv">100</span>, <span class="dv">5</span>),</span>
+<span id="cb11-8"><a href=""></a>  <span class="at">approach =</span> <span class="st">"AICc"</span>,</span>
+<span id="cb11-9"><a href=""></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb11-10"><a href=""></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column">
+<ul>
+<li><code>bws0</code>: bandwidths <strong>iniciales</strong>, uno por término (incluido el intercepto). Si se omite, <code>gwr.multiscale()</code> los estima con <code>bw.gwr()</code> por variable antes de iterar.</li>
+<li><code>criterion = "dCVR"</code>: criterio de convergencia.</li>
+<li><code>approach = "AICc"</code>: criterio para optimizar cada <span class="math inline">\(bw_j\)</span> en cada iteración.</li>
+</ul>
+</div></div>
+<div class="fragment">
+<p>Los bandwidths optimizados para cada término (incluyendo el intercept):</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">tibble</span>(</span>
+<span id="cb12-2"><a href=""></a>  <span class="at">coeficiente =</span> coeficientes,</span>
+<span id="cb12-3"><a href=""></a>  <span class="at">bw =</span> mgwr_std<span class="sc">$</span>GW.arguments<span class="sc">$</span>bws</span>
+<span id="cb12-4"><a href=""></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-5"><a href=""></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb12-6"><a href=""></a>  <span class="fu">aes</span>(<span class="at">x =</span> coeficiente, <span class="at">y =</span> bw) <span class="sc">+</span></span>
+<span id="cb12-7"><a href=""></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb12-8"><a href=""></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb12-9"><a href=""></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Coeficientes"</span>, <span class="at">y =</span> <span class="st">"Bandwidth (vecinos)"</span>) <span class="sc">+</span> </span>
+<span id="cb12-10"><a href=""></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="dia3-mgwr_files/figure-revealjs/unnamed-chunk-9-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</div>
+</section>
+<section id="convergencia-inicial-vs.-final" class="slide level2">
+<h2>Convergencia: inicial vs.&nbsp;final</h2>
+<p>Las iteraciones del ajuste están en el elemento 5 (sin nombre) de la lista que devuelve <code>gwr.multiscale()</code></p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="co"># Historia de bandwidths: una fila por iteración, una columna por término</span></span>
+<span id="cb13-2"><a href=""></a>mgwr_std[[<span class="dv">5</span>]] <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a href=""></a>  <span class="fu">as_tibble</span>(<span class="at">.name_repair =</span> \(x) coeficientes) <span class="sc">|&gt;</span> </span>
+<span id="cb13-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">iteracion =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>iteracion, <span class="at">names_to =</span> <span class="st">"variable"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-6"><a href=""></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb13-7"><a href=""></a>  <span class="fu">aes</span>(<span class="at">x =</span> iteracion, <span class="at">y =</span> value, <span class="at">color =</span> variable) <span class="sc">+</span></span>
+<span id="cb13-8"><a href=""></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="dia3-mgwr_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="diagnóstico" class="slide level2">
+<h2>Diagnóstico</h2>
+<p>¿Cómo fue el ajuste MGWR en general?</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">as_tibble</span>(mgwr_std<span class="sc">$</span>GW.diagnostic) <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), \(x) <span class="fu">round</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  RSS.gw  AICc   AIC   BIC R2.val R2adj   edf   enp
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1   45.4  287.  267.  167.  0.712 0.673  140.  19.1</code></pre>
+</div>
+</div></div>
+<p>¿Cómo se distribuyen los residuos?</p>
+<div class="columns">
+<div class="column fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="fu">ggplot</span>(mgwr_std<span class="sc">$</span>SDF) <span class="sc">+</span></span>
+<span id="cb16-2"><a href=""></a>  <span class="fu">aes</span>(<span class="at">fill =</span> residual) <span class="sc">+</span></span>
+<span id="cb16-3"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href=""></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">midpoint =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Residuos MGWR"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href=""></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="dia3-mgwr_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="co"># Variograma residuos</span></span>
+<span id="cb17-2"><a href=""></a>v_res <span class="ot">&lt;-</span> <span class="fu">variogram</span>(residual <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> mgwr_std<span class="sc">$</span>SDF)</span>
+<span id="cb17-3"><a href=""></a><span class="fu">plot</span>(v_res)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="dia3-mgwr_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="estandarizar-para-comparar" class="slide level2">
+<h2>Estandarizar para comparar</h2>
+<blockquote>
+<p>Estandarizar <span class="math inline">\(y\)</span> y cada <span class="math inline">\(x_j\)</span> a <span class="math inline">\(N(0,1)\)</span> <strong>antes</strong> de calibrar MGWR.</p>
+</blockquote>
+<div class="columns">
+<div class="column fragment">
+<p><strong>Centrado</strong></p>
+<ul>
+<li>Evita que el nivel de cada <span class="math inline">\(x_j\)</span> se mezcle con el intercepto: <span class="math inline">\(\beta_j(s_i)\,x_{ij} = \beta_j(s_i)(x_{ij} - \bar{x}_j) + \beta_j(s_i)\,\bar{x}_j\)</span></li>
+<li>Es lo que afecta a los <strong>bandwidths</strong>, sobre todo el del intercepto</li>
+<li><code>GWmodel</code> ya centra por defecto (<code>predictor.centered = TRUE</code>)</li>
+</ul>
+</div><div class="column fragment">
+<p><strong>Escalar</strong></p>
+<ul>
+<li>Hace comparables las <strong>magnitudes</strong> de los <span class="math inline">\(\beta_j\)</span> entre variables</li>
+<li>Con datos crudos, un <span class="math inline">\(\beta_j\)</span> “grande” puede reflejar solo las unidades de <span class="math inline">\(x_j\)</span></li>
+<li>Comparar GWR vs.&nbsp;MGWR sin estandarizar sirve para ver bandwidth único vs.&nbsp;múltiple; comparar variables <strong>dentro</strong> del modelo requiere estandarizar</li>
+</ul>
+</div></div>
+</section>
+<section id="gwr-vs.-mgwr-pctfb" class="slide level2">
+<h2>GWR vs.&nbsp;MGWR: <code>PctFB</code></h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>lims_fb <span class="ot">&lt;-</span> <span class="fu">range</span>(gwr_ga<span class="sc">$</span>SDF<span class="sc">$</span>PctFB, mgwr_std<span class="sc">$</span>SDF<span class="sc">$</span>PctFB)</span>
+<span id="cb18-2"><a href=""></a></span>
+<span id="cb18-3"><a href=""></a>p_gwr_fb <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(gwr_ga<span class="sc">$</span>SDF) <span class="sc">+</span></span>
+<span id="cb18-4"><a href=""></a>  <span class="fu">aes</span>(<span class="at">fill =</span> PctFB) <span class="sc">+</span></span>
+<span id="cb18-5"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb18-6"><a href=""></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">midpoint =</span> <span class="dv">0</span>, <span class="at">limits =</span> lims_fb) <span class="sc">+</span></span>
+<span id="cb18-7"><a href=""></a>  <span class="fu">labs</span>(</span>
+<span id="cb18-8"><a href=""></a>    <span class="at">title =</span> <span class="st">"GWR"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>,</span>
+<span id="cb18-9"><a href=""></a>    <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">"bw ="</span>, bw_ga)</span>
+<span id="cb18-10"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb18-11"><a href=""></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb18-12"><a href=""></a></span>
+<span id="cb18-13"><a href=""></a>p_mgwr_fb <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mgwr_std<span class="sc">$</span>SDF) <span class="sc">+</span></span>
+<span id="cb18-14"><a href=""></a>  <span class="fu">aes</span>(<span class="at">fill =</span> PctFB) <span class="sc">+</span></span>
+<span id="cb18-15"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb18-16"><a href=""></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">midpoint =</span> <span class="dv">0</span>, <span class="at">limits =</span> lims_fb) <span class="sc">+</span></span>
+<span id="cb18-17"><a href=""></a>  <span class="fu">labs</span>(</span>
+<span id="cb18-18"><a href=""></a>    <span class="at">title =</span> <span class="st">"MGWR"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>,</span>
+<span id="cb18-19"><a href=""></a>    <span class="at">subtitle =</span> <span class="fu">paste</span>(</span>
+<span id="cb18-20"><a href=""></a>      <span class="st">"bw ="</span>, mgwr_std<span class="sc">$</span>GW.arguments<span class="sc">$</span>bws[<span class="dv">3</span>]</span>
+<span id="cb18-21"><a href=""></a>    )</span>
+<span id="cb18-22"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb18-23"><a href=""></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb18-24"><a href=""></a></span>
+<span id="cb18-25"><a href=""></a>p_gwr_fb <span class="sc">|</span> p_mgwr_fb</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:55%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="dia3-mgwr_files/figure-revealjs/unnamed-chunk-14-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="gwr-vs.-mgwr-el-resto-de-las-variables" class="slide level2">
+<h2>GWR vs.&nbsp;MGWR: el resto de las variables</h2>
+
+<img data-src="dia3-mgwr_files/figure-revealjs/unnamed-chunk-15-1.png" width="1248" class="r-stretch"></section></section>
+<section>
+<section id="problemas-de-mgwr" class="title-slide slide level1 center">
+<h1>Problemas de MGWR</h1>
+
+</section>
+<section id="problema-1-multiplicidad-de-hipótesis-dependientes" class="slide level2">
+<h2>Problema 1: multiplicidad de hipótesis dependientes</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Testear <span class="math inline">\(\beta_j\)</span> en los <span class="math inline">\(m\)</span> puntos de calibración son <span class="math inline">\(m\)</span> tests: el error Tipo I se infla.</li>
+<li>Los tests <strong>no son independientes</strong>: comparten datos a través del vecindario definido por <span class="math inline">\(bw_j\)</span>.</li>
+</ul>
+<p><strong>Grado de dependencia</strong> de los tests de la variable <span class="math inline">\(j\)</span>:</p>
+<p><span class="math display">\[D_j = \dfrac{m - ENP_j}{m - 1}\]</span></p>
+<ul>
+<li><span class="math inline">\(D_j = 0\)</span>: <span class="math inline">\(ENP_j = m\)</span>, cada regresión local es independiente</li>
+<li><span class="math inline">\(D_j = 1\)</span>: <span class="math inline">\(ENP_j = 1\)</span>, el coeficiente es global</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/enp-dependency.png" style="width:100.0%"></p>
+<figcaption>Fotheringham, Oshan &amp; Li (2023), fig.&nbsp;3.1</figcaption>
+</figure>
+</div>
+</div></div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Advertencia</strong></p>
+</div>
+<div class="callout-content">
+<p><code>GWmodel</code> reporta solo el ENP <strong>global</strong> del modelo, no el <span class="math inline">\(ENP_j\)</span> de cada variable.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="corrección-por-variable" class="slide level2">
+<h2>Corrección por variable</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Bonferroni modificado</strong> (FWER)</p>
+<p><span class="math display">\[\alpha_j^* = \dfrac{\alpha}{m + D_j(1 - m)} = \dfrac{\alpha}{ENP_j}\]</span></p>
+<ul>
+<li><span class="math inline">\(D_j = 0\)</span>: Bonferroni clásico, <span class="math inline">\(\alpha/m\)</span></li>
+<li><span class="math inline">\(D_j = 1\)</span>: sin corrección, <span class="math inline">\(\alpha\)</span></li>
+<li>Es la misma corrección de da Silva-Fotheringham (2016), ahora con un <span class="math inline">\(ENP_j\)</span> por variable</li>
+</ul>
+<div class="text-small">
+<p>Šidák y Benjamini-Hochberg se modifican igual: el número de tests <span class="math inline">\(m\)</span> se reemplaza por una función de <span class="math inline">\(D_j\)</span>.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="math inline">\(ENP_j\)</span> <strong>aproximado</strong>: GWR univariado sin intercepto, con el <span class="math inline">\(bw_j\)</span> de MGWR.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb19-2"><a href=""></a>m <span class="ot">&lt;-</span> <span class="fu">nrow</span>(georgia_std)</span>
+<span id="cb19-3"><a href=""></a></span>
+<span id="cb19-4"><a href=""></a>tests <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb19-5"><a href=""></a>  <span class="at">variable =</span> x_vars,</span>
+<span id="cb19-6"><a href=""></a>  <span class="at">bw =</span> mgwr_std<span class="sc">$</span>GW.arguments<span class="sc">$</span>bws[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb19-7"><a href=""></a>) <span class="sc">|&gt;</span></span>
+<span id="cb19-8"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-9"><a href=""></a>    <span class="at">enp_j =</span> <span class="fu">map2_dbl</span>(variable, bw, \(v, b) {</span>
+<span id="cb19-10"><a href=""></a>      <span class="fu">gwr.basic</span>(</span>
+<span id="cb19-11"><a href=""></a>        <span class="fu">reformulate</span>(<span class="fu">c</span>(v, <span class="st">"-1"</span>), <span class="at">response =</span> <span class="st">"PctBach"</span>),</span>
+<span id="cb19-12"><a href=""></a>        <span class="at">data =</span> georgia_std, <span class="at">bw =</span> b,</span>
+<span id="cb19-13"><a href=""></a>        <span class="at">kernel =</span> <span class="st">"gaussian"</span>, <span class="at">adaptive =</span> <span class="cn">TRUE</span></span>
+<span id="cb19-14"><a href=""></a>      ) <span class="sc">|&gt;</span> <span class="fu">pluck</span>(<span class="st">"GW.diagnostic"</span>, <span class="st">"enp"</span>)</span>
+<span id="cb19-15"><a href=""></a>    }),</span>
+<span id="cb19-16"><a href=""></a>    <span class="at">d_j =</span> (m <span class="sc">-</span> enp_j) <span class="sc">/</span> (m <span class="sc">-</span> <span class="dv">1</span>),</span>
+<span id="cb19-17"><a href=""></a>    <span class="at">alpha_j =</span> alpha <span class="sc">/</span> enp_j</span>
+<span id="cb19-18"><a href=""></a>  )</span>
+<span id="cb19-19"><a href=""></a>tests</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+  variable    bw enp_j   d_j alpha_j
+  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1 PctRural   155  1.35 0.998 0.0372 
+2 PctFB       10 10.7  0.939 0.00467
+3 PctBlack   100  1.78 0.995 0.0280 
+4 PctPov     157  1.31 0.998 0.0383 </code></pre>
+</div>
+</div>
+</div></div>
+</section>
+<section id="significancia-local-sin-corregir-vs.-corregida" class="slide level2">
+<h2>Significancia local: sin corregir vs.&nbsp;corregida</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>edf <span class="ot">&lt;-</span> mgwr_std<span class="sc">$</span>GW.diagnostic<span class="sc">$</span>edf</span>
+<span id="cb21-2"><a href=""></a></span>
+<span id="cb21-3"><a href=""></a>signif_long <span class="ot">&lt;-</span> mgwr_std<span class="sc">$</span>SDF <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a href=""></a>  <span class="fu">select</span>(PctFB_TV, PctBlack_TV) <span class="sc">|&gt;</span></span>
+<span id="cb21-5"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>geometry, <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
+<span id="cb21-6"><a href=""></a>               <span class="at">values_to =</span> <span class="st">"t"</span>, <span class="at">names_pattern =</span> <span class="st">"(.*)_TV"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-7"><a href=""></a>  <span class="fu">left_join</span>(tests, <span class="at">by =</span> <span class="st">"variable"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-8"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb21-9"><a href=""></a>    <span class="st">`</span><span class="at">Sin corregir</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">abs</span>(t) <span class="sc">&gt;</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>, edf),</span>
+<span id="cb21-10"><a href=""></a>    <span class="at">Corregida =</span> <span class="fu">abs</span>(t) <span class="sc">&gt;</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha_j <span class="sc">/</span> <span class="dv">2</span>, edf)</span>
+<span id="cb21-11"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb21-12"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(<span class="st">`</span><span class="at">Sin corregir</span><span class="st">`</span>, Corregida),</span>
+<span id="cb21-13"><a href=""></a>               <span class="at">names_to =</span> <span class="st">"test"</span>, <span class="at">values_to =</span> <span class="st">"signif"</span>)</span>
+<span id="cb21-14"><a href=""></a></span>
+<span id="cb21-15"><a href=""></a>p_signif <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(signif_long) <span class="sc">+</span></span>
+<span id="cb21-16"><a href=""></a>  <span class="fu">aes</span>(<span class="at">fill =</span> signif) <span class="sc">+</span></span>
+<span id="cb21-17"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb21-18"><a href=""></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#440154"</span>, <span class="st">"#FDE725"</span>)) <span class="sc">+</span></span>
+<span id="cb21-19"><a href=""></a>  <span class="fu">facet_grid</span>(variable <span class="sc">~</span> <span class="fu">fct_rev</span>(test)) <span class="sc">+</span></span>
+<span id="cb21-20"><a href=""></a>  <span class="fu">theme_void</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span>
+<span id="cb21-21"><a href=""></a>p_signif</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:55%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="dia3-mgwr_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="problema-2-vale-la-pena-mgwr" class="slide level2">
+<h2>Problema 2: ¿vale la pena MGWR?</h2>
+<div title="¿La variación de los coeficientes locales es real o es ruido de muestreo?">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>¿La variación de los coeficientes locales es real o es ruido de muestreo?</strong></p>
+</div>
+<div class="callout-content">
+<p>En GWR (Día 2) lo respondimos con el test de permutación Monte Carlo (<code>gwr.montecarlo()</code>).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column text-small" style="width:60%;">
+<p><strong>Test Monte Carlo para MGWR</strong></p>
+<ol type="1">
+<li>Ajustar MGWR con <span class="math inline">\(bw_j\)</span> óptimos y guardar el desvío estándar de los coeficientes locales de cada <span class="math inline">\(x_j\)</span></li>
+<li>Repetir <span class="math inline">\(N\)</span> veces (<span class="math inline">\(N \geq 1000\)</span>):
+<ol type="a">
+<li>Permutar las coordenadas</li>
+<li>Reajustar MGWR <strong>con selección de bandwidth</strong></li>
+<li>Guardar desvío estándar de los coeficientes locales</li>
+</ol></li>
+<li><span class="math inline">\(p\)</span>-valor empírico de <span class="math inline">\(x_j\)</span>: desvíos permutados <span class="math inline">\(\geq\)</span> al observado</li>
+</ol>
+</div><div class="column" style="width:40%;">
+<div title="No disponible en GWmodel">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>No disponible en GWmodel</strong></p>
+</div>
+<div class="callout-content">
+<p><code>gwr.montecarlo()</code> solo acepta un bandwidth único: no hay equivalente para <code>gwr.multiscale()</code>. Con <span class="math inline">\(N = 1000\)</span> son 1000 backfittings completos, cada uno con su búsqueda de bandwidths.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="problema-3-incertidumbre-del-bandwidth-por-variable" class="slide level2">
+<h2>Problema 3: incertidumbre del bandwidth, por variable</h2>
+<div title="Un bandwidth por variable, cada uno con su propia incertidumbre">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Un bandwidth por variable, cada uno con su propia incertidumbre</strong></p>
+</div>
+<div class="callout-content">
+<p>¿Es igual de “chata” la curva AICc alrededor del óptimo para una variable local (<code>PctFB</code>) que para una casi global (<code>PctRural</code>)?</p>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>Es la <strong>misma búsqueda</strong> que hace el backfitting en la última iteración (paso 2):</p>
+<ul>
+<li>objetivo: residuo parcial <span class="math inline">\(\hat{\mathbf{f}}_j + \hat{\boldsymbol\varepsilon}\)</span></li>
+<li>predictor: solo <span class="math inline">\(\mathbf{x}_j\)</span></li>
+<li>las demás <span class="math inline">\(\hat{\mathbf{f}}_{j'}\)</span> quedan <strong>fijas</strong> en el ajuste de MGWR</li>
+</ul>
+<p>Cada curva es un <strong>perfil</strong>: AICc al mover <span class="math inline">\(bw_j\)</span>, con el resto del modelo en su óptimo.</p>
+</div><div class="column" style="width:55%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="co"># Residuo parcial de cada X_k: f_k + e = y - suma de las demás f_p</span></span>
+<span id="cb22-2"><a href=""></a>parciales <span class="ot">&lt;-</span> georgia_std <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb22-4"><a href=""></a>    <span class="fu">all_of</span>(x_vars),</span>
+<span id="cb22-5"><a href=""></a>    \(x) mgwr_std<span class="sc">$</span>SDF[[<span class="fu">cur_column</span>()]] <span class="sc">*</span> x <span class="sc">+</span> mgwr_std<span class="sc">$</span>SDF<span class="sc">$</span>residual,</span>
+<span id="cb22-6"><a href=""></a>    <span class="at">.names =</span> <span class="st">"parcial_{.col}"</span></span>
+<span id="cb22-7"><a href=""></a>  ))</span>
+<span id="cb22-8"><a href=""></a></span>
+<span id="cb22-9"><a href=""></a><span class="co"># Perfil de AICc: GWR univariado sin intercepto, un bw por vez</span></span>
+<span id="cb22-10"><a href=""></a>perfil_bw <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb22-11"><a href=""></a>  <span class="at">variable =</span> x_vars, <span class="at">bw =</span> <span class="dv">10</span><span class="sc">:</span><span class="fu">nrow</span>(georgia_std)</span>
+<span id="cb22-12"><a href=""></a>) <span class="sc">|&gt;</span></span>
+<span id="cb22-13"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-14"><a href=""></a>    <span class="at">AICc =</span> <span class="fu">map2_dbl</span>(variable, bw, \(v, b) {</span>
+<span id="cb22-15"><a href=""></a>      fm <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">str_glue</span>(<span class="st">"parcial_{v} ~ {v} -1"</span>))</span>
+<span id="cb22-16"><a href=""></a>      <span class="fu">gwr.basic</span>(</span>
+<span id="cb22-17"><a href=""></a>        fm, <span class="at">data =</span> parciales, <span class="at">bw =</span> b,</span>
+<span id="cb22-18"><a href=""></a>        <span class="at">kernel =</span> <span class="st">"gaussian"</span>, <span class="at">adaptive =</span> <span class="cn">TRUE</span></span>
+<span id="cb22-19"><a href=""></a>      ) <span class="sc">|&gt;</span> </span>
+<span id="cb22-20"><a href=""></a>        <span class="fu">pluck</span>(<span class="st">"GW.diagnostic"</span>, <span class="st">"AICc"</span>)</span>
+<span id="cb22-21"><a href=""></a>    }, <span class="at">.progress =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-22"><a href=""></a>  )</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+</section>
+<section id="problema-3-intervalos-con-akaike-weights" class="slide level2">
+<h2>Problema 3: intervalos con Akaike weights</h2>
+<ol type="1">
+<li>Para cada bw candidato: <span class="math inline">\(\Delta_l = AICc_l - AICc_{min}\)</span></li>
+<li>Akaike weight: <span class="math inline">\(\omega_l = \dfrac{e^{-\Delta_l/2}}{\sum_{l'} e^{-\Delta_{l'}/2}}\)</span> (probabilidad relativa de que <span class="math inline">\(bw_l\)</span> sea el mejor)</li>
+<li>Ordenar los <span class="math inline">\(\omega_l\)</span> de mayor a menor y sumar hasta superar 0.95: el rango de esos bw es el IC</li>
+</ol>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>ic_bw <span class="ot">&lt;-</span> perfil_bw <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-3"><a href=""></a>    <span class="at">w =</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.5</span> <span class="sc">*</span> (AICc <span class="sc">-</span> <span class="fu">min</span>(AICc))), <span class="at">w =</span> w <span class="sc">/</span> <span class="fu">sum</span>(w),</span>
+<span id="cb23-4"><a href=""></a>    <span class="at">.by =</span> variable</span>
+<span id="cb23-5"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb23-6"><a href=""></a>  <span class="fu">arrange</span>(variable, <span class="fu">desc</span>(w)) <span class="sc">|&gt;</span></span>
+<span id="cb23-7"><a href=""></a>  <span class="fu">filter</span>(<span class="fu">lag</span>(<span class="fu">cumsum</span>(w), <span class="at">default =</span> <span class="dv">0</span>) <span class="sc">&lt;</span> <span class="fl">0.95</span>, <span class="at">.by =</span> variable) <span class="sc">|&gt;</span></span>
+<span id="cb23-8"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">lo =</span> <span class="fu">min</span>(bw), <span class="at">hi =</span> <span class="fu">max</span>(bw), <span class="at">.by =</span> variable)</span>
+<span id="cb23-9"><a href=""></a>ic_bw</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  variable    lo    hi
+  &lt;chr&gt;    &lt;int&gt; &lt;int&gt;
+1 PctBlack    28   159
+2 PctFB       10    29
+3 PctPov      39   159
+4 PctRural    35   159</code></pre>
+</div>
+</div></div>
+<div title="¿Cómo se lee?">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>¿Cómo se lee?</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>IC que llega a <span class="math inline">\(m\)</span>, el proceso <strong>no se distingue de uno global</strong>.</p></li>
+<li><p>IC que no se solapan: procesos a <strong>escalas distintas</strong></p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="problema-3-perfiles-de-aicc" class="slide level2">
+<h2>Problema 3: perfiles de AICc</h2>
+<p>Gráfico de perfiles</p>
+<div class="fragment">
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">ggplot</span>(perfil_bw) <span class="sc">+</span></span>
+<span id="cb25-2"><a href=""></a>  <span class="fu">geom_rect</span>(</span>
+<span id="cb25-3"><a href=""></a>    <span class="at">data =</span> ic_bw, <span class="at">fill =</span> <span class="st">"grey85"</span>,</span>
+<span id="cb25-4"><a href=""></a>    <span class="fu">aes</span>(<span class="at">xmin =</span> lo, <span class="at">xmax =</span> hi, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>)</span>
+<span id="cb25-5"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb25-6"><a href=""></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> bw, <span class="at">y =</span> AICc)) <span class="sc">+</span></span>
+<span id="cb25-7"><a href=""></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb25-8"><a href=""></a>    <span class="at">data =</span> <span class="fu">select</span>(tests, variable, bw),</span>
+<span id="cb25-9"><a href=""></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> bw), <span class="at">linetype =</span> <span class="st">"dashed"</span></span>
+<span id="cb25-10"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb25-11"><a href=""></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free_y"</span>, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb25-12"><a href=""></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bandwidth (vecinos)"</span>, <span class="at">y =</span> <span class="st">"AICc (perfil)"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="dia3-mgwr_files/figure-revealjs/unnamed-chunk-20-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</div>
+</section>
+<section id="problema-4-multicolinealidad" class="slide level2">
+<h2>Problema 4: multicolinealidad</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Importante</strong></p>
+</div>
+<div class="callout-content">
+<p>Con pocos vecinos por ventana, dos predictores pueden aparecer <strong>correlacionados localmente</strong> aunque no lo estén globalmente (Wheeler &amp; Tiefelsdorf 2005).</p>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><code>gwr.collin.diagno()</code> calcula diagnósticos locales de colinealidad para un GWR de bandwidth único:</p>
+<ul>
+<li><code>VIF</code> local (<em>variance inflation factor</em>)</li>
+<li><code>local_CN</code> (<em>condition number</em>)</li>
+<li><code>VDP</code> (<em>variance-decomposition proportions</em>)</li>
+</ul>
+</div><div class="column" style="width:60%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a>collin <span class="ot">&lt;-</span> <span class="fu">gwr.collin.diagno</span>(</span>
+<span id="cb26-2"><a href=""></a>  PctBach <span class="sc">~</span> PctRural <span class="sc">+</span> PctFB <span class="sc">+</span> PctBlack <span class="sc">+</span> PctPov,</span>
+<span id="cb26-3"><a href=""></a>  <span class="at">data =</span> georgia_std, <span class="at">bw =</span> bw_ga,</span>
+<span id="cb26-4"><a href=""></a>  <span class="at">kernel =</span> <span class="st">"gaussian"</span>, <span class="at">adaptive =</span> <span class="cn">TRUE</span></span>
+<span id="cb26-5"><a href=""></a>)</span>
+<span id="cb26-6"><a href=""></a>collin<span class="sc">$</span>SDF <span class="sc">|&gt;</span></span>
+<span id="cb26-7"><a href=""></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">|&gt;</span></span>
+<span id="cb26-8"><a href=""></a>  <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">"_VIF"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb26-9"><a href=""></a>  <span class="fu">summary</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  PctRural_VIF     PctFB_VIF      PctBlack_VIF     PctPov_VIF   
+ Min.   :1.132   Min.   :1.179   Min.   :1.408   Min.   :1.585  
+ 1st Qu.:1.263   1st Qu.:1.352   1st Qu.:1.673   1st Qu.:1.823  
+ Median :1.610   Median :1.788   Median :2.148   Median :2.249  
+ Mean   :1.674   Mean   :1.740   Mean   :2.115   Mean   :2.305  
+ 3rd Qu.:2.059   3rd Qu.:2.049   3rd Qu.:2.467   3rd Qu.:2.682  
+ Max.   :2.517   Max.   :2.485   Max.   :2.964   Max.   :3.481  </code></pre>
+</div>
+</div>
+</div></div>
+<div class="fragment" title="¿Y en MGWR?">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>¿Y en MGWR?</strong></p>
+</div>
+<div class="callout-content">
+<p>Bandwidths propios <strong>matizan</strong> el problema (una variable casi global no pierde tamaño de muestra), pero no lo resuelven. <code>GWmodel</code> no tiene esta función para MGWR.</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="complementos" class="title-slide slide level1 center">
+<h1>Complementos</h1>
+
+</section>
+<section id="algunas-extensiones-de-gwr" class="slide level2 incremental">
+<h2>Algunas extensiones de GWR</h2>
+<p><strong>GWGLM</strong> (<em>Geographically Weighted Generalized Linear Model</em>) extiende GWR a la familia de modelos lineales generalizados (logística, Poisson, …), reemplazando mínimos cuadrados ponderados por <strong>máxima verosimilitud ponderada localmente</strong> (IRLS). La mecánica conceptual (ponderar por cercanía) es la misma que en GWR.</p>
+<p><strong>Mixed GWR</strong>: combina coeficientes <strong>globales</strong> (constantes) con <strong>locales</strong> (variables en el espacio), para variables donde no se espera variación espacial. <code>gwr.mixed()</code> en <code>GWmodel</code>.</p>
+<p><strong>GW-PCA</strong>: análisis de componentes principales con estructura de correlación estimada <strong>localmente</strong>. <code>gwpca()</code> en <code>GWmodel</code>.</p>
+<p><strong>RF espacial</strong>: Random Forest con pesos o coordenadas espaciales incorporados (e.g.&nbsp;paquetes <code>SpatialML</code>, <code>grf</code>), para capturar no estacionariedad sin asumir una forma funcional lineal.</p>
+<p><strong>TWR/GTWR</strong>: extienden la ponderación local de GWR al eje temporal (o a ambos ejes), para datos con estructura espacio-temporal.</p>
+</section>
+<section id="gwglm-en-r-código-mínimo" class="slide level2">
+<h2>GWGLM en R: código mínimo</h2>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="co"># Solo para mostrar, usando variable dicotómica.</span></span>
+<span id="cb28-2"><a href=""></a>georgia_std <span class="ot">&lt;-</span> georgia_std <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">HighBach =</span> <span class="fu">as.numeric</span>(PctBach <span class="sc">&gt;</span> <span class="fu">median</span>(PctBach)))</span>
+<span id="cb28-4"><a href=""></a></span>
+<span id="cb28-5"><a href=""></a><span class="co"># Bandwidth</span></span>
+<span id="cb28-6"><a href=""></a>dMat <span class="ot">&lt;-</span> <span class="fu">gw.dist</span>(<span class="at">dp.locat =</span> <span class="fu">st_coordinates</span>(<span class="fu">st_centroid</span>(georgia_std)))</span>
+<span id="cb28-7"><a href=""></a>bw_bin <span class="ot">&lt;-</span> <span class="fu">bw.ggwr</span>(</span>
+<span id="cb28-8"><a href=""></a>  HighBach <span class="sc">~</span> PctRural <span class="sc">+</span> PctFB <span class="sc">+</span> PctBlack <span class="sc">+</span> PctPov,</span>
+<span id="cb28-9"><a href=""></a>  <span class="at">data =</span> georgia_std, <span class="at">family =</span> <span class="st">"binomial"</span>,</span>
+<span id="cb28-10"><a href=""></a>  <span class="at">approach =</span> <span class="st">"AICc"</span>, <span class="at">kernel =</span> <span class="st">"gaussian"</span>,</span>
+<span id="cb28-11"><a href=""></a>  <span class="at">adaptive =</span> <span class="cn">TRUE</span>, <span class="at">dMat =</span> dMat</span>
+<span id="cb28-12"><a href=""></a>)</span>
+<span id="cb28-13"><a href=""></a></span>
+<span id="cb28-14"><a href=""></a><span class="co"># Ajuste</span></span>
+<span id="cb28-15"><a href=""></a>ggwr_ga <span class="ot">&lt;-</span> <span class="fu">ggwr.basic</span>(</span>
+<span id="cb28-16"><a href=""></a>  HighBach <span class="sc">~</span> PctRural <span class="sc">+</span> PctFB <span class="sc">+</span> PctBlack <span class="sc">+</span> PctPov,</span>
+<span id="cb28-17"><a href=""></a>  <span class="at">data =</span> georgia_std, <span class="at">bw =</span> bw_bin, <span class="at">family =</span> <span class="st">"binomial"</span>,</span>
+<span id="cb28-18"><a href=""></a>  <span class="at">kernel =</span> <span class="st">"gaussian"</span>, <span class="at">adaptive =</span> <span class="cn">TRUE</span>, <span class="at">dMat =</span> dMat</span>
+<span id="cb28-19"><a href=""></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="co"># Coeficientes locales (escala logit)</span></span>
+<span id="cb29-2"><a href=""></a>ggwr_ga<span class="sc">$</span>SDF <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href=""></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(x_vars)) <span class="sc">|&gt;</span></span>
+<span id="cb29-4"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>geometry, <span class="at">names_to =</span> <span class="st">"variable"</span>, <span class="at">values_to =</span> <span class="st">"coef"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-5"><a href=""></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb29-6"><a href=""></a>  <span class="fu">aes</span>(<span class="at">fill =</span> coef) <span class="sc">+</span></span>
+<span id="cb29-7"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb29-8"><a href=""></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">midpoint =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb29-9"><a href=""></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable) <span class="sc">+</span></span>
+<span id="cb29-10"><a href=""></a>  <span class="fu">theme_void</span>(<span class="at">base_size =</span> <span class="dv">18</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="dia3-mgwr_files/figure-revealjs/unnamed-chunk-23-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section></section>
+<section>
+<section id="cierre" class="title-slide slide level1 center">
+<h1>Cierre</h1>
+
+</section>
+<section id="repaso-del-curso-completo" class="slide level2">
+<h2>Repaso del curso completo</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><strong>Día 1</strong></p>
+<ul>
+<li>No estacionariedad espacial, límites de OLS</li>
+<li>GWR: kernel, bandwidth, coeficientes locales</li>
+<li>Ajuste de GWR (<code>lasrosas.corn</code>)</li>
+</ul>
+</div><div class="column" style="width:33%;">
+<p><strong>Día 2</strong></p>
+<ul>
+<li>Diagnóstico: residuos, R² local, AICc</li>
+<li>Interpretación de coeficientes locales</li>
+<li>Los 4 problemas de GWR: multiplicidad, ¿vale la pena?, incertidumbre del bandwidth, multicolinealidad</li>
+</ul>
+</div><div class="column" style="width:33%;">
+<p><strong>Día 3</strong></p>
+<ul>
+<li>Límite del bandwidth único</li>
+<li>MGWR: backfitting, bandwidths por variable, estandarización</li>
+<li>Los mismos problemas, ahora por variable</li>
+<li>GWGLM y otros complementos</li>
+</ul>
+</div></div>
+</section></section>
+<section id="gracias" class="title-slide slide level1 center">
+<h1><strong>¡Gracias!</strong></h1>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="dia3-mgwr_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="dia3-mgwr_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="dia3-mgwr_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="dia3-mgwr_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="dia3-mgwr_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="dia3-mgwr_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="dia3-mgwr_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="dia3-mgwr_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="dia3-mgwr_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="dia3-mgwr_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="dia3-mgwr_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': true,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1300,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copiado");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copiado");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
