@@ -136,9 +136,10 @@ gwr_bv$GW.diagnostic$edf
 
 ## AICc: OLS vs. GWR -----------------------------------------------------------
 # AIC modelo global
-p <- 2
+p <- gwr_bv$lm$rank
 m <- nrow(lr1999)
-AIC(gwr_bv$lm) + (2 * p * (p + 1)) / (m - p - 1)
+sigma <- sqrt(deviance(gwr_bv$lm) / m)
+2 * m * log(sigma) + m * log(2 * pi) + m * (m + p) / (m - 2 - p)
 
 # AICc GWR
 gwr_bv$GW.diagnostic$AICc
@@ -206,30 +207,32 @@ ggplot(gwr_bv$SDF) +
   theme(legend.position = "bottom")
 
 ## Problema 1: valores p ajustados por multiplicidad ---------------------------
-# Cálculo valores p con gwr.t.adjust()
-gwr_bv_sp <- gwr_bv
-gwr_bv_sp$SDF <- as(gwr_bv_sp$SDF, "Spatial")
-res <- gwr.t.adjust(gwr_bv_sp)$results
-
-# Fotheringham-Byrne, 2009
-p_fb <- res$fb
-
-# da Silva-Fotheringham, 2016
-p <- gwr_bv$lm$rank
-enp <- gwr_bv$GW.diagnostic$enp
-p_raw <- as_tibble(res$p)
-p_dsf <- p_raw |>
+p <- gwr_bv$lm$rank              # Parámetros nominales
+enp <- gwr_bv$GW.diagnostic$enp  # Parámetros efectivos
+gwr_bv$SDF <- gwr_bv$SDF |>
   mutate(
+    # Valores p sin ajustar
+    across(
+      .cols = ends_with("_TV"),
+      .fns = \(x) 2 * pt(abs(x), df = gwr_edf, lower.tail = FALSE),
+      .names = "{col}_p"
+    ),
+
+    # Fotheringham-Byrne, 2009
     across(
       .cols = ends_with("_p"),
-      .fns = \(x) x * (enp / p),
-      .names = "{col}_dsf"
+      .fns = \(x) pmin(1, x * (1 + enp - enp / (m * p))),
+      .names = "{col}_fb"
     ),
-    .keep = "none"
-)
 
-# Agregar resultados a SDF
-gwr_bv$SDF <- bind_cols(gwr_bv$SDF, p_raw, p_fb, p_dsf)
+    # da Silva-Fotheringham, 2016
+    across(
+      .cols = ends_with("_p"),
+      .fns = \(x) pmin(1, x * (enp / p)),
+      .names = "{col}_dsf"
+    )
+  ) |>
+  rename_with(\(x) str_replace(x, "_TV_p", "_p"))
 
 ## Problema 1: significancia sin corregir --------------------------------------
 ggplot(gwr_bv$SDF) +
