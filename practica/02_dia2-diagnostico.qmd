@@ -82,15 +82,15 @@ glimpse(gwr_bv$SDF)
 p_b1 <- ggplot(gwr_bv$SDF) +
   aes(color = bv) +
   geom_sf(size = 2, shape = "square") +
-  scale_color_gradient2(low = "#440154", mid = "#21908C", high = "#FDE725", midpoint = 0) +
-  labs(title = "Pendiente local de bv", color = NULL) +
+  scale_color_viridis_c() +
+  labs(color = "Pendiente local de bv") +
   theme_void()
 
 p_r2 <- ggplot(gwr_bv$SDF) +
   aes(color = Local_R2) +
   geom_sf(size = 2, shape = "square") +
   scale_color_viridis_c(limits = c(0, 1)) +
-  labs(title = "Coeficiente de determinación local", color = NULL) +
+  labs(color = "Coeficiente de determinación local") +
   theme_void()
 
 p_b1 / p_r2

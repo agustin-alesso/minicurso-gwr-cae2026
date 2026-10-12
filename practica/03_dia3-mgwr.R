@@ -24,7 +24,7 @@ georgia_sf <- st_join(
   st_as_sf(Gedu.df, coords = c("X", "Y"))
 )
 
-# Estandarizamos a N(0,1)
+# Estandarizar
 x_vars <- c("PctRural", "PctFB", "PctBlack", "PctPov")
 y_var <- c("PctBach")
 vars <- c(y_var, x_vars)

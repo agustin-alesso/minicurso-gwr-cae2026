@@ -82,7 +82,7 @@ ggplot(st_drop_geometry(gwr_bv$SDF)) +
 ggplot(gwr_bv$SDF) +
   aes(color = Local_R2) +
   geom_sf(size = 2, shape = "square") +
-  scale_color_gradient2(midpoint = 0.5, limits = c(0, 1)) +
+  scale_color_viridis_c(limits = c(0, 1)) +
   labs(title = "R² local", color = NULL) +
   theme_void()
 
