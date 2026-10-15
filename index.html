@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Todos los links abren en una pestaña nueva -->
+  <base target="_blank">
+  <title>Regresión geográfica ponderada para el modelado de tendencia en procesos estocásticos espaciales</title>
+  <!-- Mismas fuentes y paleta que las clases (tema simple de revealjs) -->
+  <link href="https://fonts.googleapis.com/css?family=News+Cycle:400,700|Lato:400,700,400italic,700italic" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #fff;
+      --fg: #000;
+      --muted: #555;
+      --card: #fafafa;
+      --border: #d9d9d9;
+      --accent: #00008b;
+      --accent-hover: #0000be;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 17px/1.55 Lato, sans-serif;
+    }
+    main { max-width: 760px; margin: 0 auto; padding: 48px 16px 64px; }
+    h1, h2 { font-family: "News Cycle", sans-serif; color: var(--fg); }
+    h1 { font-size: 2.1rem; font-weight: 700; line-height: 1.2; margin: 0 0 8px; }
+    .lead { color: var(--muted); margin: 0 0 8px; }
+    .author { margin: 0 0 40px; }
+    ul.refs { padding-left: 1.2em; margin: 0; }
+    ul.refs li { margin-bottom: 10px; }
+    h2 { font-size: 1.3rem; font-weight: 700; margin: 40px 0 12px; }
+    .cards { display: grid; gap: 12px; }
+    a.card {
+      display: block; padding: 14px 18px; text-decoration: none; color: inherit;
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    }
+    a.card:hover, a.card:focus-visible { border-color: var(--accent-hover); }
+    .card strong { color: var(--accent); }
+    .card span { display: block; color: var(--muted); font-size: .92rem; }
+    footer { margin-top: 48px; color: var(--muted); font-size: .9rem; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Regresión geográfica ponderada para el modelado de tendencia en procesos estocásticos espaciales</h1>
+    <p class="lead">Minicurso de GWR y MGWR en R, II Congreso Argentino de Estadística.</p>
+    <p class="author">
+      Dr. Agustín Alesso<br>
+      Facultad de Ciencias Agrarias, Universidad Nacional del Litoral (FCA-UNL)<br>
+      <a href="mailto:calesso@fca.unl.edu.ar">calesso@fca.unl.edu.ar</a>
+    </p>
+
+    <h2>Clases</h2>
+    <div class="cards">
+      <a class="card" href="slides/dia1-gwr.html">
+        <strong>Día 1.</strong> Primeros pasos con GWR
+        <span>Motivación, ajuste e interpretación de GWR.</span>
+      </a>
+      <a class="card" href="slides/dia2-diagnostico.html">
+        <strong>Día 2.</strong> Diagnóstico e inferencia en GWR
+        <span>Diagnósticos, bandwidth e inferencia.</span>
+      </a>
+      <a class="card" href="slides/dia3-mgwr.html">
+        <strong>Día 3.</strong> MGWR y extensiones de GWR
+        <span>Backfitting, bandwidths por variable y extensiones.</span>
+      </a>
+    </div>
+
+    <h2>Entornos en la nube (Posit Cloud)</h2>
+    <div class="cards">
+      <a class="card" href="https://posit.cloud/content/12947052">
+        <strong>Positron</strong>
+        <span>Proyecto listo para usar, con los paquetes instalados.</span>
+      </a>
+      <a class="card" href="https://posit.cloud/content/13053441">
+        <strong>RStudio</strong>
+        <span>Mismo material en RStudio.</span>
+      </a>
+    </div>
+
+    <h2>Uso local</h2>
+    <div class="cards">
+      <a class="card" href="https://github.com/agustin-alesso/minicurso-gwr-cae2026">
+        <strong>Repositorio en GitHub</strong>
+        <span>Clonar o descargar. Contiene los scripts de práctica y los resultados precalculados. Las instrucciones están en el README.</span>
+      </a>
+    </div>
+
+    <h2>Bibliografía</h2>
+    <ul class="refs">
+      <li>Comber, A., Callaghan, M., Harris, P., Lu, B., Malleson, N., & Brunsdon, C. (2022). gwverse: A template for a new generic geographically weighted R package. <em>Geographical Analysis, 54</em>(3), 685&ndash;709. <a href="https://doi.org/10.1111/gean.12337">https://doi.org/10.1111/gean.12337</a></li>
+      <li>da Silva, A. R., & Fotheringham, A. S. (2016). The multiple testing issue in geographically weighted regression. <em>Geographical Analysis, 48</em>(3), 233&ndash;247. <a href="https://doi.org/10.1111/gean.12084">https://doi.org/10.1111/gean.12084</a></li>
+      <li>Fotheringham, A. S., Brunsdon, C., & Charlton, M. (2002). <em>Geographically weighted regression: The analysis of spatially varying relationships.</em> Wiley.</li>
+      <li>Fotheringham, A. S., Oshan, T. M., & Li, Z. (2023). <em>Multiscale geographically weighted regression: Theory and practice</em> (1st ed.). CRC Press. <a href="https://doi.org/10.1201/9781003435464">https://doi.org/10.1201/9781003435464</a></li>
+      <li>Fotheringham, A. S., Yang, W., & Kang, W. (2017). Multiscale geographically weighted regression (MGWR). <em>Annals of the American Association of Geographers, 107</em>(6), 1247&ndash;1265. <a href="https://doi.org/10.1080/24694452.2017.1352480">https://doi.org/10.1080/24694452.2017.1352480</a></li>
+      <li>Harris, P., Brunsdon, C., Lu, B., Nakaya, T., & Charlton, M. (2017). Introducing bootstrap methods to investigate coefficient non-stationarity in spatial regression models. <em>Spatial Statistics, 21</em>, 241&ndash;261. <a href="https://doi.org/10.1016/j.spasta.2017.07.006">https://doi.org/10.1016/j.spasta.2017.07.006</a></li>
+      <li>Li, Z., Fotheringham, A. S., Li, W., & Oshan, T. (2019). Fast geographically weighted regression (FastGWR): A scalable algorithm to investigate spatial process heterogeneity in millions of observations. <em>International Journal of Geographical Information Science, 33</em>(1), 155&ndash;175. <a href="https://doi.org/10.1080/13658816.2018.1521523">https://doi.org/10.1080/13658816.2018.1521523</a></li>
+      <li>Lloyd, C. D. (2011). <em>Local models for spatial analysis</em> (2nd ed.). CRC Press.</li>
+      <li>Wheeler, D., & Tiefelsdorf, M. (2005). Multicollinearity and correlation among local regression coefficients in geographically weighted regression. <em>Journal of Geographical Systems, 7</em>(2), 161&ndash;187. <a href="https://doi.org/10.1007/s10109-005-0155-6">https://doi.org/10.1007/s10109-005-0155-6</a></li>
+    </ul>
+
+    <footer>
+      Las diapositivas se navegan con las flechas del teclado. Con <kbd>F</kbd> se ven a pantalla completa y con <kbd>O</kbd> en vista general.
+    </footer>
+  </main>
+</body>
+</html>
